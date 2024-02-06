@@ -25,4 +25,26 @@ queryObj = JSON.parse(queryStr);
 * <b>\b</b> used for matching exactly that is inside 
 * <b>g</b> used for every matching will change not just the first one
 
+### Query Sorting
+> Sorting the query by some fields
+
+```js
+let query = Tour.find(queryObj);
+if (req.query.sort) {
+    // we provide query like this ?sort=price,ratingsAverage,ratingsQuantity
+    // so we need to replace each ',' with a space
+    // to make it like this 'price ratingsAverage ratingsQuantity'
+  const sortBy = req.query.sort.split(',').join(' ');
+  query = query.sort(sortBy);
+} else {
+  query = query.sort('-createdAt');
+//   default sorting when no query is provided
+}
+```
+* <b>req.query.sort.split(',').join(' ')</b> used for replacing the comma with space
+* <b>query = query.sort(sortBy)</b> used for sorting the query by the fields provided in the query
+* <b>query = query.sort('-createdAt')</b> used for default sorting when no query is provided
+* <b>sort method</b> is used for sorting the query by the fields provided in the query in order of the fields provided
+
+
 <hr>
